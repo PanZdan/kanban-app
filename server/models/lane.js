@@ -6,6 +6,8 @@ const laneSchema = new Schema({
   notes: [{ type: Schema.ObjectId, ref: 'Note', required: true }],
   id: { type: 'String', required: true, unique: true },
 });
+mongoose.plugin(schema => { schema.options.usePushEach = true });
+
 
 laneSchema.pre('find', function (next) {
   this.populate('notes');
