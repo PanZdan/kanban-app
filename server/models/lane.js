@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import Note from '../models/note';
+
 const Schema = mongoose.Schema;
 
 const laneSchema = new Schema({
@@ -14,7 +16,15 @@ function populateNotes(next) {
   next();
 }
 
+function deleteLane(next) {
+  const notesInlane = this.notes;
+  notesInlane.forEach(note => {
+    Note.findByIdAndRemove(note._id).exec()
+  });
+}
+
 laneSchema.pre('find', populateNotes);
 laneSchema.pre('findOne', populateNotes);
+laneSchema.post('exec', deleteLane);
 
 export default mongoose.model('Lane', laneSchema);
