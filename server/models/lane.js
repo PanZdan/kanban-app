@@ -21,10 +21,11 @@ function deleteLane(next) {
   notesInlane.forEach(note => {
     Note.findByIdAndRemove(note._id).exec()
   });
+  next();
 }
 
 laneSchema.pre('find', populateNotes);
 laneSchema.pre('findOne', populateNotes);
-laneSchema.post('exec', deleteLane);
+laneSchema.pre('remove', deleteLane);
 
 export default mongoose.model('Lane', laneSchema);
