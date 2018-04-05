@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import callApi from '../../util/apiCaller';
 
 // Export Constants
 export const CREATE_NOTE = 'CREATE_NOTE';
@@ -8,13 +9,18 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 // Export Actions
 
 export function createNote(note, laneId) {
-  return {
-    type: CREATE_NOTE,
-    laneId,
-    note: {
-      id: uuid(),
-      ...note,
-    },
+ return {
+   type: CREATE_NOTE,
+   laneId,
+   note,
+ };
+}
+
+export function createNoteRequest(note, laneId) {
+  return (dispatch) => {
+    return callApi('notes', 'post', { note, laneId }).then(noteResp => {
+      dispatch(createNote(noteResp, laneId));
+    });
   };
 }
 
