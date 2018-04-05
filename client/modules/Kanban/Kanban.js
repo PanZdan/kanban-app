@@ -29,7 +29,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addNote: createNote,
   createLane: createLaneRequest,
 };
 

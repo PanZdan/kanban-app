@@ -5,6 +5,7 @@ import callApi from '../../util/apiCaller';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const CREATE_NOTES = 'CREATE_NOTES';
 
 // Export Actions
 
@@ -14,6 +15,13 @@ export function createNote(note, laneId) {
    laneId,
    note,
  };
+}
+
+export function createNotes(notesData) {
+  return {
+    type: CREATE_NOTES,
+    notes: notesData
+  };
 }
 
 export function createNoteRequest(note, laneId) {

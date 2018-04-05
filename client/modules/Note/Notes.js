@@ -6,7 +6,7 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote}) => {
   return (
     <ul className="notes">
       {notes.map(note => (
-        <Note id={note.id} key={note.id} editing={note.editing}>
+        <Note id={note.id} key={note.id}>
           <Edit
             editing={note.editing}
             value={note.task}
