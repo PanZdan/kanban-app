@@ -4,7 +4,7 @@ import Lane from './Lane';
 import * as laneActions from './LaneActions';
 import { createNote } from '../Note/NoteActions';
 
-import { deleteLane, updateLane, editLane } from './LaneActions';
+// import { deleteLane, updateLane, editLane } from './LaneActions';
 import { createNoteRequest } from '../Note/NoteActions';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -12,9 +12,9 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  editLane,
-  deleteLane,
-  updateLane,
+  ...laneActions,
+  updateLane: laneActions.updateLaneRequest,
+  deleteLane: laneActions.deleteLaneRequest,
   addNote: createNoteRequest,
 };
 

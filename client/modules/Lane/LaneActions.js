@@ -65,3 +65,11 @@ export function createLaneRequest(lane) {
     });
   };
 }
+
+export function deleteLaneRequest(lane) {
+  return (dispatch) => {
+    return callApi(`lanes/${laneId}`, 'delete').then(res => {
+      dispatch(deleteLane(res));
+    });
+  };
+}
