@@ -82,10 +82,10 @@ export function deleteLaneRequest(laneId) {
   };
 }
 
-export function updateLaneRequest(lane) {
+export function updateLaneRequest(laneId) {
   return (dispatch) => {
-    return callApi(`lanes/${laneId}`, 'put', { lane }).then(() => {
-      dispatch(updateLane(lane));
+    return callApi(`lanes/${laneId}`, 'put', { name }).then(() => {
+      dispatch(updateLane(laneId));
     });
   };
 }
