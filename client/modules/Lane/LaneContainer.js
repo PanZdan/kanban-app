@@ -6,7 +6,7 @@ import ItemTypes from '../Kanban/itemTypes';
 
 // import * as laneActions from './LaneActions';
 
-import { deleteLane, updateLane, editLane, deleteLaneRequest, updateLaneRequest, moveBetweenLanes } from './LaneActions';
+import { deleteLane, updateLane, editLane, deleteLaneRequest, updateLaneRequest, moveBetweenLanesRequest } from './LaneActions';
 import { createNoteRequest } from '../Note/NoteActions';
 
 const noteTarget = {
@@ -15,10 +15,10 @@ const noteTarget = {
    const { id: noteId, laneId: sourceLaneId } = sourceProps;
 
    if (!targetProps.lane.notes.length) {
-     targetProps.moveBetweenLanes(
-       targetProps.lane.id,
+     targetProps.moveBetweenLanesRequest(
        noteId,
        sourceLaneId,
+       targetProps.lane.id,
      );
    }
  },
@@ -33,7 +33,7 @@ const mapDispatchToProps = {
   updateLane: updateLaneRequest,
   deleteLane: deleteLaneRequest,
   addNote: createNoteRequest,
-  moveBetweenLanes
+  moveBetweenLanesRequest
 };
 
 export default compose(

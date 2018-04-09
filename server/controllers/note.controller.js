@@ -1,6 +1,6 @@
-import Note from '../models/note';
-import Lane from '../models/lane';
-import uuid from 'uuid';
+import Note from "../models/note";
+import Lane from "../models/lane";
+import uuid from "uuid";
 
 export function addNote(req, res) {
   const { note, laneId } = req.body;
@@ -63,5 +63,37 @@ export function editNote(req, res) {
       res.status(500).send(err);
     }
     res.json({ note });
+  });
+}
+
+export function moveBetweenLanes(req, res) {
+  Lane.findOne({ id: req.body.sourceLaneId }).exec((err, sourceLane) => {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    Lane.findOne({ id: req.body.targetLaneId }).exec((err, targetLane) => {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      const note = sourceLane.notes.find(note => note.id === req.params.noteId);
+      const sourceIndex = sourceLane.notes.indexOf(note);
+      sourceLane.notes.splice(sourceIndex, 1);
+      sourceLane.save(err => {
+        if (err) {
+          res.status(500).send(err);
+          return;
+        }
+        targetLane.notes.push(note);
+        targetLane.save(err => {
+          if (err) {
+            res.status(500).send(err);
+            return;
+          }
+          res.status(200).end();
+        });
+      });
+    });
   });
 }

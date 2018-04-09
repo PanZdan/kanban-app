@@ -91,11 +91,19 @@ export function updateLaneRequest(lane) {
   };
 }
 
-export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
+export function moveBetweenLanes(noteId, sourceLaneId, targetLaneId) {
   return {
     type: MOVE_BETWEEN_LANES,
     targetLaneId,
     noteId,
     sourceLaneId,
+  };
+}
+
+export function moveBetweenLanesRequest(noteId, sourceLaneId, targetLaneId) {
+  return (dispatch) => {
+    return callApi(`/notes/${noteId}/move`, 'put', { sourceLaneId, targetLaneId }).then(() => {
+      dispatch(moveBetweenLanes(noteId, sourceLaneId, targetLaneId));
+    }).catch(err => console.log(err));
   };
 }
