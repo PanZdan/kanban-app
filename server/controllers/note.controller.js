@@ -36,6 +36,10 @@ export function deleteNote(req, res) {
       return;
     }
     note.remove(err => {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
       Lane.findOne({ notes: note._id }).exec((err, lane) => {
         if (err) {
           res.status(500).send(err);
